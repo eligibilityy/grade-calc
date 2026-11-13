@@ -137,7 +137,7 @@ export function Calculator() {
         />
         <div className="relative mx-auto flex w-full max-w-3xl items-center gap-2 px-4 pt-8 pb-4 lg:max-w-6xl">
           <div className="mr-auto leading-tight">
-            <p className="font-medium">GWA Calculator</p>
+            <p className="font-medium">GPA Calculator</p>
             <a
               href="https://yiliya.studio"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"

@@ -29,7 +29,7 @@ export function parseGradeInput(text: string): ParsedGrade | null {
   if (forcedScore) value = value.slice(0, -1).trim();
 
   if (!/^\d+(\.\d+)?$/.test(value)) {
-    return { ok: false, error: "Not a grade" };
+    return { ok: false, error: "Not a valid grade" };
   }
   const n = Number(value);
 
@@ -37,10 +37,10 @@ export function parseGradeInput(text: string): ParsedGrade | null {
     const point = GRADE_SCALE.find((g) => g.point === n);
     if (point) return { ok: true, grade: point, source: "grade" };
     // 3.6 isn't on the scale, and nobody's Canvas grade is 3.6
-    if (n < 4) return { ok: false, error: "Not on scale" };
+    if (n < 4) return { ok: false, error: "Not on the scale" };
   }
 
-  if (n > 100) return { ok: false, error: "Max is 100" };
+  if (n > 100) return { ok: false, error: "Over 100" };
   return { ok: true, grade: scoreToGrade(n), source: "score" };
 }
 

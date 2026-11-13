@@ -44,7 +44,7 @@ export function YearSection({
         <span className="flex-1 text-lg font-medium tracking-tight">
           {name}
         </span>
-        <span className="text-sm text-muted-foreground">GWA</span>
+        <span className="text-sm text-muted-foreground">GPA</span>
         <span className="w-10 text-right font-medium tabular-nums">
           {formatGwa(gwa)}
         </span>
@@ -94,7 +94,7 @@ function SemesterBlock({
             </Badge>
           ) : (
             <span className="text-xs text-muted-foreground">
-              {complete ? "No Dean's List" : "Dean's List pending"}
+              {complete ? "Not on Dean's List" : "Dean's List pending"}
             </span>
           )}
         </span>
@@ -111,7 +111,7 @@ function SemesterBlock({
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="font-medium">{course.code}</span>
-                  {!counted && <Badge>Not in GWA</Badge>}
+                  {!counted && <Badge>Not in GPA</Badge>}
                   {course.note && <Badge>{course.note}</Badge>}
                 </div>
                 <p

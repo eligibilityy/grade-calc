@@ -66,7 +66,7 @@ function ToggleTile({
     <button
       type="button"
       aria-pressed={on}
-      aria-label={`Count ${label} in GWA`}
+      aria-label={`Count ${label} in GPA`}
       onClick={() => onChange(!on)}
       className={cn(
         TILE,

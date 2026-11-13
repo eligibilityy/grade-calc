@@ -1,7 +1,7 @@
 /**
- * How a course is treated in GWA calculations:
+ * How a course is treated in GPA calculations:
  * - regular:   always counts
- * - nstp:      never counts toward GWA, but still checked for honors
+ * - nstp:      never counts toward GPA, but still checked for honors
  * - pathfit:   counts by default, can be toggled off
  * - practicum: same case as pathfit
  */
