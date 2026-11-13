@@ -5,7 +5,6 @@ import {
   type Grades,
 } from "./grading";
 
-/** What the user typed for each course code, kept as-is so it shows back. */
 export type Entries = Partial<Record<string, string>>;
 
 export type ParsedGrade =
@@ -13,13 +12,9 @@ export type ParsedGrade =
   | { ok: false; error: string };
 
 /**
- * One box accepts any of:
- * - a letter grade: "A-", "b+"
- * - a grade point from the scale: "3.75", "4", "0"
- * - a Canvas score out of 100: "93.5" (a trailing "%" forces this)
- *
- * Canvas shows the raw score (the handbook's "Point Ranges" column), so it
- * goes through scoreToGrade(), not the transmuted % column.
+ * Accepts a letter ("A-"), a grade point ("3.75") or a Canvas score ("93.5";
+ * a trailing "%" forces a score). Canvas shows the raw score (the handbook's
+ * "Point Ranges" column), not the transmuted %.
  */
 export function parseGradeInput(text: string): ParsedGrade | null {
   let value = text.trim();
@@ -49,7 +44,6 @@ export function parseGradeInput(text: string): ParsedGrade | null {
   return { ok: true, grade: scoreToGrade(n), source: "score" };
 }
 
-/** Grade points for every entry that parses. */
 export function resolveGrades(entries: Entries): Grades {
   const grades: Grades = {};
   for (const [code, text] of Object.entries(entries)) {

@@ -1,8 +1,5 @@
 import type { Course } from "./types";
 
-/**
- * Conversion table straight from Handbook
- */
 export const GRADE_SCALE = [
   { point: 4.0, letter: "A", minScore: 96, percent: "98–100%" },
   { point: 3.75, letter: "A-", minScore: 92, percent: "95–97%" },
@@ -41,7 +38,6 @@ export function scoreToGrade(score: number): GradeInfo {
   );
 }
 
-/** Grade per course code */
 export type Grades = Partial<Record<string, GradePoint>>;
 
 export interface GwaOptions {
@@ -105,11 +101,7 @@ export function roundGwa(gwa: number): number {
   return Math.round(gwa * 100) / 100;
 }
 
-/**
- * Needed GWA to reach target GWA given current GWA and remaining units
- *
- * Gets? nuggets
- */
+/** The average needed on the remaining units to reach `target` */
 export type TargetResult =
   | { kind: "no-units-left" }
   | { kind: "already-met" }
@@ -128,7 +120,6 @@ export function targetGwa(result: GwaResult, target: number): TargetResult {
   return { kind: "needed", value: needed };
 }
 
-/** Flatten courses. */
 export function allCourses(
   years: { semesters: { courses: Course[] }[] }[],
 ): Course[] {

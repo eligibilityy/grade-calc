@@ -1,18 +1,9 @@
 "use client";
 
-import { useState, type ComponentProps, type ReactNode } from "react";
+import { useRef, useState, type ComponentProps, type ReactNode } from "react";
 import { BriefcaseIcon, HeartIcon, TrashIcon } from "@heroicons/react/24/solid";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AdaptiveDialog } from "@/components/ui/adaptive-dialog";
+import { Button } from "@/components/ui/button";
 import type { GwaOptions } from "@/lib/grading";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +14,6 @@ interface GwaControlsProps {
   onClear: () => void;
 }
 
-/** Three square tiles under the status card: two GWA toggles and Clear all. */
 export function GwaControls({
   options,
   onOptionsChange,
@@ -50,18 +40,17 @@ export function GwaControls({
 }
 
 const TILE =
-  "flex aspect-square flex-col items-center justify-center gap-2 rounded-[28px] p-3 text-center outline-none select-none transition-colors duration-200 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-6";
+  "flex aspect-square flex-col items-center justify-center gap-2 rounded-[28px] p-3 text-center outline-none select-none transition-[transform,scale,background-color,color] duration-150 ease-out active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring disabled:pointer-events-none disabled:opacity-60 [&_svg]:size-6";
 
 function TileLabel({ title, detail }: { title: string; detail: string }) {
   return (
     <span className="leading-tight">
       <span className="block text-sm font-medium">{title}</span>
-      <span className="text-xs opacity-70">{detail}</span>
+      <span className="text-xs opacity-75">{detail}</span>
     </span>
   );
 }
 
-/** Solid when the courses count toward the GWA, greyed out when they don't. */
 function ToggleTile({
   icon,
   label,
@@ -82,8 +71,8 @@ function ToggleTile({
       className={cn(
         TILE,
         on
-          ? "bg-primary text-primary-foreground"
-          : "bg-card text-muted-foreground/60 hover:text-muted-foreground",
+          ? "bg-[var(--primary-bg)] text-[var(--primary-fg)] hover:bg-[var(--primary-hover)]"
+          : "bg-surface-top text-ink-11 hover:bg-ink-2 [&_svg]:text-ink-8",
       )}
     >
       {icon}
@@ -99,7 +88,7 @@ function ClearTile(props: ComponentProps<"button">) {
       {...props}
       className={cn(
         TILE,
-        "bg-destructive/[0.08] text-destructive hover:bg-destructive/[0.14]",
+        "bg-red-100 text-[var(--red-11)] hover:bg-red-200",
         props.className,
       )}
     />
@@ -114,35 +103,42 @@ function ClearGrades({
   onClear: () => void;
 }) {
   const [open, setOpen] = useState(false);
+  const confirmRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger render={<ClearTile />} disabled={disabled}>
-        <TrashIcon />
-        <TileLabel title="Clear all" detail="Grades" />
-      </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-[28px] p-6 ring-0">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Clear all grades?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Every grade you&apos;ve entered for this curriculum will be removed.
-            This can&apos;t be undone.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter className="-mx-6 -mb-6 rounded-b-[28px] border-t-0 bg-muted p-4">
-          <AlertDialogCancel className="rounded-full">Cancel</AlertDialogCancel>
-          <AlertDialogAction
+    <AdaptiveDialog
+      open={open}
+      onOpenChange={setOpen}
+      trigger={<ClearTile />}
+      triggerChildren={
+        <>
+          <TrashIcon />
+          <TileLabel title="Clear all" detail="Grades" />
+        </>
+      }
+      disabled={disabled}
+      variant="confirm"
+      destructive
+      title="Clear all grades?"
+      description="Every grade you've entered for this curriculum will be removed. This can't be undone."
+      initialFocus={confirmRef}
+      footer={(close) => (
+        <>
+          <Button variant="outline" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            ref={confirmRef}
             variant="destructive"
-            className="rounded-full"
             onClick={() => {
               onClear();
-              setOpen(false);
+              close();
             }}
           >
-            Clear all
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+            Clear all grades
+          </Button>
+        </>
+      )}
+    />
   );
 }

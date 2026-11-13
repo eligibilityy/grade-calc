@@ -2,7 +2,7 @@
  * How a course is treated in GWA calculations:
  * - regular:   always counts
  * - nstp:      never counts toward GWA, but still checked for honors
- * - pathfit:   counts by default, boolean toggle to remove from gwa
+ * - pathfit:   counts by default, can be toggled off
  * - practicum: same case as pathfit
  */
 export type CourseType = "regular" | "nstp" | "pathfit" | "practicum";
@@ -32,7 +32,6 @@ export interface Curriculum {
   id: string;
   school: string;
   program: string;
-  /** Short name for the curriculum picker, e.g. "BSCS 2026" */
   short?: string;
   effective: string;
   years: YearLevel[];

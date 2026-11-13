@@ -10,7 +10,6 @@ interface GradeInputProps {
   onChange: (value: string) => void;
 }
 
-/** One box for a Canvas score, grade point or letter, with what it became. */
 export function GradeInput({ label, value, onChange }: GradeInputProps) {
   const resultId = useId();
   const parsed = parseGradeInput(value);
@@ -29,14 +28,13 @@ export function GradeInput({ label, value, onChange }: GradeInputProps) {
         placeholder="—"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        // 16px text on touch screens, or iOS zooms in on focus
         className={cn(
-          "h-9 w-[4.75rem] rounded-full border px-3 text-center text-base tabular-nums outline-none transition-colors duration-200 sm:text-sm",
-          "placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
-          value === ""
-            ? "border-dashed bg-transparent"
-            : "border-transparent bg-muted font-medium",
+          "h-9 w-[4.75rem] rounded-full border-0 bg-ink-3 px-3 text-center text-sm text-ink-12 tabular-nums outline-none transition-[background-color,box-shadow] duration-150 ease-out max-md:h-11 pointer-coarse:text-base",
+          "placeholder:text-ink-10 focus:bg-ink-4 focus-visible:shadow-[0_0_0_2px_var(--focus-ring)]",
+          value !== "" && "font-medium",
           invalid &&
-            "border-destructive bg-destructive/[0.06] focus-visible:ring-destructive/20",
+            "bg-[var(--red-3)] text-[var(--red-11)] focus:bg-[var(--red-4)]",
         )}
       />
       <span
@@ -45,14 +43,14 @@ export function GradeInput({ label, value, onChange }: GradeInputProps) {
         className="w-[4.5rem] text-sm leading-tight tabular-nums"
       >
         {parsed === null ? (
-          <span className="text-muted-foreground/60">No grade</span>
+          <span className="text-ink-10">No grade</span>
         ) : parsed.ok ? (
-          <span className={parsed.grade.point === 0 ? "text-destructive" : ""}>
+          <span className={parsed.grade.point === 0 ? "text-[var(--red-11)]" : "text-ink-12"}>
             <span className="font-medium">{parsed.grade.point.toFixed(2)}</span>{" "}
-            <span className="text-muted-foreground">{parsed.grade.letter}</span>
+            <span className="text-ink-11">{parsed.grade.letter}</span>
           </span>
         ) : (
-          <span className="text-destructive">{parsed.error}</span>
+          <span className="text-[var(--red-11)]">{parsed.error}</span>
         )}
       </span>
     </div>

@@ -6,6 +6,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { countsTowardGwa, type GwaOptions } from "@/lib/grading";
 import type { Entries } from "@/lib/grade-input";
 import { formatGwa, type SemesterSummary } from "@/lib/summary";
+import { cn } from "@/lib/utils";
 import { GradeInput } from "./grade-input";
 
 interface YearSectionProps {
@@ -33,10 +34,13 @@ export function YearSection({
     <Collapsible.Root
       open={open}
       onOpenChange={onOpenChange}
-      className="rounded-[28px] bg-card"
+      className="rounded-[28px] bg-surface-top transition-[scale] duration-150 ease-out has-[[data-slot=year-trigger]:active]:scale-[0.99]"
     >
-      <Collapsible.Trigger className="group flex w-full items-center gap-3 rounded-[28px] px-5 py-4 text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:px-7 sm:py-5">
-        <ChevronDownIcon className="size-5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[panel-open]:rotate-0 -rotate-90 motion-reduce:transition-none" />
+      <Collapsible.Trigger
+        data-slot="year-trigger"
+        className="group flex w-full items-center gap-3 rounded-[28px] px-5 py-4 text-left outline-none select-none transition-colors duration-150 ease-out hover:bg-ink-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring data-[panel-open]:rounded-b-none sm:px-7 sm:py-5"
+      >
+        <ChevronDownIcon className="size-5 shrink-0 -rotate-90 text-ink-10 transition-[rotate] duration-200 ease-out group-data-[panel-open]:rotate-0 motion-reduce:transition-none" />
         <span className="flex-1 text-lg font-medium tracking-tight">
           {name}
         </span>
@@ -78,16 +82,16 @@ function SemesterBlock({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-dashed px-2 pb-2">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b-[0.5px] border-line px-2 pb-2">
         <h3 className="font-medium">{semester.name}</h3>
         <span className="text-sm text-muted-foreground tabular-nums">
           {formatGwa(gwa)}
         </span>
         <span className="ml-auto">
           {deansList ? (
-            <span className="rounded-full bg-primary px-2.5 py-1 text-xs font-medium text-primary-foreground animate-in fade-in-0 zoom-in-95 duration-300">
+            <Badge strong>
               Dean&apos;s List · {deansList.name.replace("Dean's List: ", "")}
-            </span>
+            </Badge>
           ) : (
             <span className="text-xs text-muted-foreground">
               {complete ? "No Dean's List" : "Dean's List pending"}
@@ -107,8 +111,8 @@ function SemesterBlock({
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="font-medium">{course.code}</span>
-                  {!counted && <Chip>Not in GWA</Chip>}
-                  {course.note && <Chip>{course.note}</Chip>}
+                  {!counted && <Badge>Not in GWA</Badge>}
+                  {course.note && <Badge>{course.note}</Badge>}
                 </div>
                 <p
                   className="truncate text-sm text-muted-foreground"
@@ -131,9 +135,14 @@ function SemesterBlock({
   );
 }
 
-function Chip({ children }: { children: ReactNode }) {
+function Badge({ children, strong }: { children: ReactNode; strong?: boolean }) {
   return (
-    <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
+    <span
+      className={cn(
+        "inline-flex h-5 items-center rounded-full bg-ink-3 px-2 text-xs whitespace-nowrap",
+        strong ? "text-ink-12" : "text-ink-11",
+      )}
+    >
       {children}
     </span>
   );

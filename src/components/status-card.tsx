@@ -32,7 +32,7 @@ export function StatusCard({
   const deansList = finished.filter((s) => s.deansList !== null);
 
   return (
-    <section className="rounded-[28px] bg-card p-5 sm:p-7">
+    <section className="rounded-[28px] bg-surface-top p-5 sm:p-7">
       <p className="text-sm text-muted-foreground">{program}</p>
 
       <div className="mt-3 flex flex-col items-start justify-between gap-x-6 gap-y-3">
@@ -60,37 +60,37 @@ export function StatusCard({
         <NextStep result={result} honor={honor} lowest={lowest} />
       )}
 
-      <div className="mt-5 space-y-2">
+      <div className="mt-5">
+        <p className="flex items-baseline justify-between gap-4 text-sm tabular-nums">
+          <span className="text-ink-11">Units graded</span>
+          <span className="text-ink-12">
+            {unitsTaken} <span className="text-ink-10">/ {totalUnits}</span>
+          </span>
+        </p>
         <div
           role="progressbar"
           aria-label="Units graded"
           aria-valuemin={0}
           aria-valuemax={totalUnits}
           aria-valuenow={unitsTaken}
-          className="h-2 overflow-hidden rounded-full bg-muted"
+          className="mt-3 h-2.5 overflow-hidden rounded-full bg-ink-4"
         >
           <div
-            className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out motion-reduce:transition-none"
-            style={{ width: `${progress}%` }}
+            className="h-full rounded-full bg-ink-12 transition-[width] duration-200 ease-out motion-reduce:transition-none"
+            style={{ width: `${unitsTaken > 0 ? Math.max(progress, 2) : 0}%` }}
           />
         </div>
-        <p className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm text-muted-foreground tabular-nums">
-          <span>
-            {unitsTaken} of {totalUnits} units graded
-          </span>
-          {finished.length > 0 && (
-            <span>
-              Dean&apos;s List {deansList.length} of {finished.length}{" "}
-              {finished.length === 1 ? "semester" : "semesters"}
-            </span>
-          )}
-        </p>
+        {finished.length > 0 && (
+          <p className="mt-2 text-sm text-ink-11 tabular-nums">
+            Dean&apos;s List {deansList.length} of {finished.length}{" "}
+            {finished.length === 1 ? "semester" : "semesters"}
+          </p>
+        )}
       </div>
     </section>
   );
 }
 
-/** What it takes to reach the next honors tier, worked out automatically. */
 function NextStep({
   result,
   honor,

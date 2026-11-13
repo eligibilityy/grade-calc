@@ -95,7 +95,6 @@ export function Calculator() {
     DEFAULT_GWA_OPTIONS,
     isGwaOptions,
   );
-  // Years the user opened or closed; the rest follow the current year.
   const [openYears, setOpenYears] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
@@ -114,7 +113,6 @@ export function Calculator() {
   );
   const semesters = summarizeSemesters(curriculum, grades, options);
 
-  // The year you're in: the first one with an ungraded course.
   const currentYear = curriculum.years.findIndex((y) =>
     y.semesters.some((s) =>
       s.courses.some((c) => grades[c.code] === undefined),
@@ -132,8 +130,6 @@ export function Calculator() {
 
   return (
     <>
-      {/* iOS-style soft scroll edge: content fades and blurs under the bar.
-          The blur strip runs 40px past the bar, as on iOS. */}
       <header className="sticky top-0 z-30">
         <ProgressiveBlur
           side="top"
@@ -142,7 +138,12 @@ export function Calculator() {
         <div className="relative mx-auto flex w-full max-w-3xl items-center gap-2 px-4 pt-8 pb-4 lg:max-w-6xl">
           <div className="mr-auto leading-tight">
             <p className="font-medium">GWA Calculator</p>
-            <p className="text-sm text-muted-foreground">{curriculum.school}</p>
+            <a
+              href="https://yiliya.studio"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              yiliya.studio
+            </a>
           </div>
           {CURRICULA.length > 1 && (
             <CurriculumPicker
@@ -154,11 +155,7 @@ export function Calculator() {
         </div>
       </header>
 
-      {/* pt-10 starts the content where the blur strip ends (88px header +
-          40px strip = 128px), the same spot the status card pins to, so both
-          columns line up at rest and the card never sits under the blur. */}
       <div className="mx-auto w-full max-w-3xl px-4 pt-4 pb-10 lg:max-w-6xl lg:pt-10">
-        {/* Wide screens: status card pinned on the left, years scroll on the right */}
         <div className="grid gap-3 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-6">
           <aside className="space-y-3 lg:sticky lg:top-32">
             <StatusCard
@@ -230,10 +227,7 @@ function CurriculumPicker({
         if (typeof id === "string") onChange(id);
       }}
     >
-      <SelectTrigger
-        aria-label="Curriculum"
-        className="rounded-full border-transparent bg-card px-3.5"
-      >
+      <SelectTrigger aria-label="Curriculum" className="rounded-full">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="rounded-2xl p-1">
@@ -241,7 +235,7 @@ function CurriculumPicker({
           <SelectItem
             key={item.value}
             value={item.value}
-            className="rounded-xl py-1.5"
+            className="rounded-xl"
           >
             {item.label}
           </SelectItem>
