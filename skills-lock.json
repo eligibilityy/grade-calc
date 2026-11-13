@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "skills": {
+    "alignment": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/alignment/SKILL.md",
+      "computedHash": "462fa9c9bae8ac5e9ee26a79a87eeaa563f660247499f1aae9015365d370e91d"
+    },
+    "color": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/color/SKILL.md",
+      "computedHash": "69aa4cc14ce7e5d799035e1b5a425255836fe941462631f82afbd26a287ff0b5"
+    },
+    "copy": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/copy/SKILL.md",
+      "computedHash": "d09389f6a2104395d45fd61053fab3f96f5c4215cc65e33a73446933dcf81b74"
+    },
+    "defaults": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/defaults/SKILL.md",
+      "computedHash": "842c18d26e024196dc9fda2ac33fea51f68b25b52f64c29b64fe9f7154aa04de"
+    },
+    "keyboard": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/keyboard/SKILL.md",
+      "computedHash": "32036d2c2de1e957048acc40f1e3977203730f7aac5253422ccf9dd34fbd0146"
+    },
+    "motion": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion/SKILL.md",
+      "computedHash": "2cbef5b90b3f9a2e2c01843c20da92f31380e773bf607725260be8bca587306f"
+    },
+    "restraint": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/restraint/SKILL.md",
+      "computedHash": "6264be6b5b98c002fd5b73d1acffe7f685f6332130e20f56d471a713cf1d62e6"
+    },
+    "reuse": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/reuse/SKILL.md",
+      "computedHash": "1e3cda4f08c92eb283114e4c9c6b6f6c5d28c2398fe170a5dfc4abbdf063e074"
+    },
+    "scope": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/scope/SKILL.md",
+      "computedHash": "01398ce91887db32093b3d8cc883ba86d530f70379b0c526ce38911fa1d01e03"
+    },
+    "verify": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/verify/SKILL.md",
+      "computedHash": "57598247500972111e1d9e44af68d9004f6ad157194cc477bb94c9245cae514e"
+    },
+    "viewports": {
+      "source": "raphaelsalaja/skills",
+      "sourceType": "github",
+      "skillPath": "skills/viewports/SKILL.md",
+      "computedHash": "d81bd62d10dac2066c35a69407b531f1fc8bff45508049bf6e5c0a73d701e49d"
+    }
+  }
+}
