@@ -16,10 +16,14 @@ import {
   allCourses,
   computeGwa,
   isGradePoint,
-  roundGwa,
   type GwaOptions,
 } from "@/lib/grading";
-import { GRADUATION_HONORS, bestHonor, lowestGrade } from "@/lib/honors";
+import {
+  GRADUATION_HONORS,
+  bestHonor,
+  honorGwa,
+  lowestGrade,
+} from "@/lib/honors";
 import { ProgressiveBlur } from "@/lib/progressive-blur/react";
 import { summarizeSemesters } from "@/lib/summary";
 import { GwaControls } from "./gwa-controls";
@@ -105,7 +109,7 @@ export function Calculator() {
   const lowest = lowestGrade(courses, grades);
   const honor = bestHonor(
     GRADUATION_HONORS,
-    result.gwa === null ? null : roundGwa(result.gwa),
+    result.gwa === null ? null : honorGwa(result.gwa),
     lowest,
   );
   const semesters = summarizeSemesters(curriculum, grades, options);

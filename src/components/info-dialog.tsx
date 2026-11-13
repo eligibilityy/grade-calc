@@ -51,8 +51,8 @@ export function InfoDialog({ honor }: { honor: HonorRule | null }) {
           <Section title="Dean's List (each semester)">
             <RuleList rules={DEANS_LIST} current={null} />
             <p className="text-xs text-muted-foreground">
-              Checked from grade points; the handbook uses percentages. NSTP
-              isn&apos;t in the GWA but counts toward the lowest-grade rule.
+              NSTP isn&apos;t in the GPA but counts toward the lowest-grade rule.
+              Graduation honors also require no suspension or Category 2 offense.
             </p>
           </Section>
         </div>
