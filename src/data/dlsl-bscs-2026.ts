@@ -4,6 +4,7 @@ export const bscs2026 = {
   id: "dlsl-bscs-2026",
   school: "De La Salle Lipa",
   program: "Bachelor of Science in Computer Science",
+  short: "BSCS 2026",
   effective: "AY 2026-2027",
   years: [
     {

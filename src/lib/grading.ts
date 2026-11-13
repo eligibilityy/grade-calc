@@ -1,8 +1,5 @@
 import type { Course } from "./types";
 
-/**
- * Conversion table straight from Handbook
- */
 export const GRADE_SCALE = [
   { point: 4.0, letter: "A", minScore: 96, percent: "98–100%" },
   { point: 3.75, letter: "A-", minScore: 92, percent: "95–97%" },
@@ -20,7 +17,6 @@ export type GradeInfo = (typeof GRADE_SCALE)[number];
 
 export type GradePoint = GradeInfo["point"];
 
-export const PASSING_SCORE = 60;
 
 export function isGradePoint(value: unknown): value is GradePoint {
   return GRADE_SCALE.some((g) => g.point === value);
@@ -42,69 +38,6 @@ export function scoreToGrade(score: number): GradeInfo {
   );
 }
 
-/**
- * Grading system ng college is 40% gt 60% majors, 30% split btwn midterm and final
- */
-export const WEIGHTS = { gts: 40, midterm: 30, final: 30 } as const;
-
-export interface Score {
-  earned: number;
-  max: number;
-}
-
-export function pooledFraction(scores: Score[]): number | null {
-  const max = scores.reduce((sum, s) => sum + s.max, 0);
-  if (max <= 0) return null;
-  const earned = scores.reduce((sum, s) => sum + s.earned, 0);
-  return earned / max;
-}
-
-export interface CourseScoreParts {
-  gts: number | null;
-  midterm: number | null;
-  final: number | null;
-}
-
-/** Points each component contributes toward the 100-point course score */
-export function courseScoreParts(
-  gts: Score[],
-  midterm: Score | null,
-  final: Score | null,
-): CourseScoreParts {
-  const gtFraction = pooledFraction(gts);
-  return {
-    gts: gtFraction === null ? null : gtFraction * WEIGHTS.gts,
-    midterm: midterm ? (midterm.earned / midterm.max) * WEIGHTS.midterm : null,
-    final: final ? (final.earned / final.max) * WEIGHTS.final : null,
-  };
-}
-
-export interface FinalTarget {
-  grade: GradeInfo;
-  /** Percent needed on the final exam, from 0 to 100 */
-  neededPercent: number;
-  status: "secured" | "possible" | "out-of-reach";
-}
-
-/**
- * For each passing grade, the final exam percent needed to reach it given
- * the GT and midterm points so far
- */
-export function finalExamTargets(pointsSoFar: number): FinalTarget[] {
-  return GRADE_SCALE.filter((g) => g.minScore >= PASSING_SCORE).map((grade) => {
-    const pointsNeeded = grade.minScore - 0.5 - pointsSoFar;
-    const neededPercent = (pointsNeeded / WEIGHTS.final) * 100;
-    const status =
-      neededPercent <= 0
-        ? "secured"
-        : neededPercent > 100
-          ? "out-of-reach"
-          : "possible";
-    return { grade, neededPercent: Math.max(0, neededPercent), status };
-  });
-}
-
-/** Grade per course code */
 export type Grades = Partial<Record<string, GradePoint>>;
 
 export interface GwaOptions {
@@ -168,11 +101,7 @@ export function roundGwa(gwa: number): number {
   return Math.round(gwa * 100) / 100;
 }
 
-/**
- * Needed GWA to reach target GWA given current GWA and remaining units
- *
- * Gets? nuggets
- */
+/** The average needed on the remaining units to reach `target` */
 export type TargetResult =
   | { kind: "no-units-left" }
   | { kind: "already-met" }
@@ -191,7 +120,6 @@ export function targetGwa(result: GwaResult, target: number): TargetResult {
   return { kind: "needed", value: needed };
 }
 
-/** Flatten courses. */
 export function allCourses(
   years: { semesters: { courses: Course[] }[] }[],
 ): Course[] {

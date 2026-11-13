@@ -7,6 +7,7 @@ import {
 import {
   DEANS_LIST,
   bestHonor,
+  honorGwa,
   lowestGrade,
   type HonorRule,
 } from "@/lib/honors";
@@ -40,11 +41,10 @@ export function summarizeSemesters(
       const complete = semester.courses.every(
         (c) => grades[c.code] !== undefined,
       );
-      // Determine Dean's List only after semester is complete
       const deansList = complete
         ? bestHonor(
             DEANS_LIST,
-            gwa === null ? null : roundGwa(gwa),
+            gwa === null ? null : honorGwa(gwa),
             lowestGrade(semester.courses, grades),
           )
         : null;
@@ -65,5 +65,5 @@ export function summarizeSemesters(
 }
 
 export function formatGwa(gwa: number | null): string {
-  return gwa === null ? "—" : roundGwa(gwa).toFixed(2);
+  return gwa === null ? "-.--" : roundGwa(gwa).toFixed(2);
 }
