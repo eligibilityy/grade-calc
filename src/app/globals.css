@@ -137,6 +137,8 @@
   html {
     @apply font-sans;
     scrollbar-gutter: stable;
+    /* Keep focused fields clear of the sticky header and its blur strip */
+    scroll-padding-top: 8rem;
   }
 }
 

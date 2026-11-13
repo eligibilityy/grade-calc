@@ -65,5 +65,5 @@ export function summarizeSemesters(
 }
 
 export function formatGwa(gwa: number | null): string {
-  return gwa === null ? "—" : roundGwa(gwa).toFixed(2);
+  return gwa === null ? "--" : roundGwa(gwa).toFixed(2);
 }
