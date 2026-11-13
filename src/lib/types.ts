@@ -32,6 +32,8 @@ export interface Curriculum {
   id: string;
   school: string;
   program: string;
+  /** Short name for the curriculum picker, e.g. "BSCS 2026" */
+  short?: string;
   effective: string;
   years: YearLevel[];
 }

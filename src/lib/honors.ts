@@ -72,3 +72,27 @@ export function bestHonor(
   if (gwa === null || lowest === null) return null;
   return rules.find((r) => gwa >= r.minGwa && lowest >= r.minGrade) ?? null;
 }
+
+/** Tiers ruled out because a grade is below their minimum. */
+export function blockedHonors(
+  rules: HonorRule[],
+  lowest: GradePoint | null,
+): HonorRule[] {
+  if (lowest === null) return [];
+  return rules.filter((r) => lowest < r.minGrade);
+}
+
+/**
+ * The closest tier above `current` that's still possible. Rules are ordered
+ * best first, so that's the last open one before `current`.
+ */
+export function nextHonor(
+  rules: HonorRule[],
+  current: HonorRule | null,
+  lowest: GradePoint | null,
+): HonorRule | null {
+  const end = current ? rules.indexOf(current) : rules.length;
+  const blocked = blockedHonors(rules, lowest);
+  const open = rules.slice(0, end).filter((r) => !blocked.includes(r));
+  return open.at(-1) ?? null;
+}
