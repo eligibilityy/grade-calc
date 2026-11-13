@@ -82,13 +82,24 @@ export function StatusCard({
         </div>
         {finished.length > 0 && (
           <p className="mt-2 text-sm text-ink-11 tabular-nums">
-            Dean&apos;s List {deansList.length} of {finished.length}{" "}
+            Dean&apos;s List in {deansList.length} of {finished.length}{" "}
             {finished.length === 1 ? "semester" : "semesters"}
           </p>
         )}
       </div>
     </section>
   );
+}
+
+/** "Latin honors" when all are ruled out, else e.g. "Summa and Magna Cum Laude" */
+function honorList(rules: HonorRule[]): string {
+  if (rules.length === GRADUATION_HONORS.length) return "Latin honors";
+  const suffix = " Cum Laude";
+  const names = rules.map((r) => r.name);
+  if (names.length > 1 && names.every((n) => n.endsWith(suffix))) {
+    return `${names.map((n) => n.slice(0, -suffix.length)).join(" and ")}${suffix}`;
+  }
+  return names.join(" and ");
 }
 
 function NextStep({
@@ -107,17 +118,15 @@ function NextStep({
   const lines: string[] = [];
   if (goal && target?.kind === "needed") {
     lines.push(
-      `Average ${target.value.toFixed(2)} on the ${result.unitsLeft} units left, with no grade below ${goal.minGrade.toFixed(2)}, for ${goal.name}.`,
+      `To reach ${goal.name}, average ${target.value.toFixed(2)} on your remaining ${result.unitsLeft} units with no grade below ${goal.minGrade.toFixed(2)}.`,
     );
   } else if (goal && target?.kind === "out-of-reach") {
     lines.push(
-      `${goal.name} is out of reach: it would take a ${target.value.toFixed(2)} average.`,
+      `${goal.name} is out of reach. It would take a ${target.value.toFixed(2)} average, above the 4.00 maximum.`,
     );
   }
   if (blocked.length > 0 && lowest !== null) {
-    lines.push(
-      `A ${lowest.toFixed(2)} rules out ${blocked.map((r) => r.name).join(" and ")}.`,
-    );
+    lines.push(`A ${lowest.toFixed(2)} rules out ${honorList(blocked)}.`);
   }
   if (lines.length === 0) return null;
 

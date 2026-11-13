@@ -12,19 +12,19 @@ export interface HonorRule {
 
 export const DEANS_LIST: HonorRule[] = [
   {
-    name: "Dean's List: 1st Honors",
+    name: "Dean's List: First Honors",
     minGwa: 3.75,
     minGrade: 3.5,
     handbook: "GPA of 3.7500 or better, no grade lower than 3.50",
   },
   {
-    name: "Dean's List: 2nd Honors",
+    name: "Dean's List: Second Honors",
     minGwa: 3.5,
     minGrade: 3.25,
     handbook: "GPA of 3.5000 or better, no grade lower than 3.25",
   },
   {
-    name: "Dean's List: 3rd Honors",
+    name: "Dean's List: Third Honors",
     minGwa: 3.25,
     minGrade: 3.0,
     handbook: "GPA of 3.2500 or better, no grade lower than 3.00",

@@ -197,9 +197,9 @@ export function Calculator() {
             ))}
 
             <p className="px-2 pt-3 text-xs text-muted-foreground">
-              Type the score Canvas shows (like 93.5), or a final grade point
-              (3.75) or letter (A-). These are unofficial estimates; check with
-              the registrar.
+              Type the score Canvas shows (like 93.5), or your final grade point
+              (3.75) or letter (A-). These are estimates, so confirm with the
+              registrar.
             </p>
           </main>
         </div>

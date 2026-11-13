@@ -113,7 +113,7 @@ function ClearGrades({
       triggerChildren={
         <>
           <TrashIcon />
-          <TileLabel title="Clear all" detail="Grades" />
+          <TileLabel title="Clear" detail="All grades" />
         </>
       }
       disabled={disabled}

@@ -20,7 +20,7 @@ export function InfoDialog({ honor }: { honor: HonorRule | null }) {
         />
       }
       triggerChildren={<InformationCircleIcon className="size-5" />}
-      title="Grade Scale and Honors"
+      title="Grade scale and honors"
       description="Grades stay on this device. Results are unofficial estimates."
     >
       <div className="space-y-7">
@@ -30,14 +30,15 @@ export function InfoDialog({ honor }: { honor: HonorRule | null }) {
 
         <Section title="Latin honors">
           <RuleList rules={GRADUATION_HONORS} current={honor} />
+          <p className="text-xs text-ink-11">
+            NSTP isn&apos;t counted in the GPA, but its grade still has to meet
+            the lowest-grade rule. You also can&apos;t have been suspended or
+            have committed a Category 2 or higher offense.
+          </p>
         </Section>
 
         <Section title="Dean's List (each semester)">
           <RuleList rules={DEANS_LIST} current={null} />
-          <p className="text-xs text-ink-11">
-            NSTP isn&apos;t in the GPA but counts toward the lowest-grade rule.
-            Graduation honors also require no suspension or Category 2 offense.
-          </p>
         </Section>
       </div>
     </AdaptiveDialog>

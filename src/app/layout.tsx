@@ -12,7 +12,7 @@ const openRunde = localFont({
 
 export const metadata: Metadata = {
   title: "DLSL GWA Calculator",
-  description: "Calculate your GWA and course grades for dlsl :)",
+  description: "Calculate your GWA and course grades for DLSL :)",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
