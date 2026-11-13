@@ -55,6 +55,12 @@
       "skillPath": "skills/scope/SKILL.md",
       "computedHash": "01398ce91887db32093b3d8cc883ba86d530f70379b0c526ce38911fa1d01e03"
     },
+    "tactile-design": {
+      "source": "kosta4a/tactile-design",
+      "sourceType": "github",
+      "skillPath": "skills/tactile-design/SKILL.md",
+      "computedHash": "23c06c15c538283067534fa2d36d5338c500c4828e9e9615f9660d0fe98a2f13"
+    },
     "verify": {
       "source": "raphaelsalaja/skills",
       "sourceType": "github",
