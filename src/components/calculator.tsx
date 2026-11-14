@@ -159,7 +159,7 @@ export function Calculator() {
         <div className="grid gap-3 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-6">
           <aside className="space-y-3 lg:sticky lg:top-32">
             <StatusCard
-              program={`${curriculum.program} · ${curriculum.effective}`}
+              program={curriculum.program}
               result={result}
               honor={honor}
               lowest={lowest}
