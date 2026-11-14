@@ -96,7 +96,10 @@ export function AdaptiveDialog({
 
               <div className="px-5 pt-5">
                 <Drawer.Title
-                  className={cn("text-xl font-medium tracking-tight", titleClass)}
+                  className={cn(
+                    "text-xl font-medium tracking-tight",
+                    titleClass,
+                  )}
                 >
                   {title}
                 </Drawer.Title>
