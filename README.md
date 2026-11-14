@@ -33,7 +33,7 @@ bun install
 bun dev
 ```
 
-## Adding curriculums
+## Adding a curriculum
 
 1.   Create a data file in `src/data/` (see `dlsl-bscs-2026.ts` for the shape).
 2. Register it in `CURRICULA` in `src/data/curricula.ts`.
