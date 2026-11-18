@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import { CURRICULA, getCurriculum } from "@/data/curricula";
 import { useStoredState } from "@/hooks/use-stored-state";
+import { trackOnce } from "@/lib/analytics";
 import { resolveGrades, type Entries } from "@/lib/grade-input";
 import {
   DEFAULT_GWA_OPTIONS,
@@ -120,12 +121,41 @@ export function Calculator() {
   );
 
   function setEntry(code: string, value: string) {
+    trackEdit(code, value);
     setEntries((prev) => {
       const next = { ...prev };
       if (value.trim() === "") delete next[code];
       else next[code] = value;
       return next;
     });
+  }
+
+  // Runs on the user's own edits only, so grades restored from storage on
+  // load don't count as activity.
+  function trackEdit(code: string, value: string) {
+    if (value.trim() === "") return;
+    const program = curriculum.short ?? curriculum.id;
+    trackOnce("course_entered", {
+      program,
+      returning: Object.keys(entries).length > 0,
+    });
+
+    const nextGrades = resolveGrades({ ...entries, [code]: value });
+    if (nextGrades[code] === undefined) return;
+    trackOnce("gwa_calculated", { program });
+
+    const semester = curriculum.years
+      .flatMap((y) => y.semesters)
+      .find((s) => s.courses.some((c) => c.code === code));
+    const wasComplete = semester?.courses.every(
+      (c) => grades[c.code] !== undefined,
+    );
+    const nowComplete = semester?.courses.every(
+      (c) => nextGrades[c.code] !== undefined,
+    );
+    if (nowComplete && !wasComplete) {
+      trackOnce("semester_completed", { program });
+    }
   }
 
   return (
