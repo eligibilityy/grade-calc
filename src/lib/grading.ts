@@ -9,7 +9,7 @@ export const GRADE_SCALE = [
   { point: 2.75, letter: "C+", minScore: 72, percent: "83–85%" },
   { point: 2.5, letter: "C", minScore: 68, percent: "80–82%" },
   { point: 2.25, letter: "C-", minScore: 63, percent: "77–79%" },
-  { point: 2.0, letter: "D", minScore: 60, percent: "76%" },
+  { point: 2.0, letter: "D", minScore: 60, percent: "75–76%" },
   { point: 0, letter: "F", minScore: 0, percent: "65–74%" },
 ] as const;
 
